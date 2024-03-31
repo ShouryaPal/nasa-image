@@ -3,6 +3,7 @@ import AuthTabs from "@/components/auth-tabs";
 import useStore from "@/hooks/user";
 import { getData } from "@/lib/db.server";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -24,7 +25,7 @@ export default function Home() {
 		: "";
 	return (
 		<>
-			{user.user === null ? (
+			{user.user === false ? (
 				<div className="flex flex-col items-center justify-center min-h-screen">
 					<AuthTabs />
 				</div>
