@@ -8,7 +8,7 @@ const LoginButton = () => {
 	const user = useStore();
 	function onSubmit() {
 		window.location.href = `${process.env.NEXT_PUBLIC_URL}/api/auth/google`;
-		user.fetchUser();
+		user.setUser();
 	}
 
 	return (

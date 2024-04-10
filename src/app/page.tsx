@@ -18,6 +18,7 @@ export default function Home() {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		user.fetchUser();
+		user.setUser();
 	}, []);
 
 	const formattedDate = query.data?.date

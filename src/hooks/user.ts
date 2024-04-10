@@ -2,10 +2,10 @@
 import { create } from "zustand";
 import axios from "axios";
 
-
 interface UserState {
   user: boolean;
   fetchUser: () => void;
+  setUser: () => void;
 }
 
 const useStore = create<UserState>((set) => ({
@@ -18,6 +18,16 @@ const useStore = create<UserState>((set) => ({
           withCredentials: true,
         }
       );
+      set({ user: true });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  setUser: async () => {
+    try {
+      await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/auth/googlerefetch`, {
+        withCredentials: true,
+      });
       set({ user: true });
     } catch (err) {
       console.log(err);
