@@ -1,12 +1,11 @@
-import type { Account, User as AuthUser } from "next-auth";
+import type { Account, User as AuthUser,AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/User";
 import connect from "@/lib/db";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const authOptions: any = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
