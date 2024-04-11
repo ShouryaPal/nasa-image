@@ -4,7 +4,6 @@ import LoginCard from "@/components/login-card";
 import SignUpCard from "@/components/signup-card";
 import { useValue } from "@/hooks/value";
 import LoginButton from "./google-sign-in";
-import SignUpButton from "./google-sign-up";
 
 const AuthTabs = () => {
 	const value = useValue();
@@ -28,7 +27,6 @@ const AuthTabs = () => {
 			<TabsContent value="sign-up">
 				<div className="flex flex-col gap-2">
 					<SignUpCard />
-					<SignUpButton/>
 				</div>
 			</TabsContent>
 		</Tabs>

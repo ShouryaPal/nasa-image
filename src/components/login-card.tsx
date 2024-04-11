@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Card,
 	CardContent,
@@ -21,22 +21,30 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { loginSchema } from "@/schema/login-autentication";
-import useStore from "@/hooks/user";
-import axios from "axios";
+import { signIn } from "next-auth/react";
+import { toast } from "sonner";
+import { useUser } from "@/hooks/user";
 
 const LoginCard = () => {
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
 	});
-	const user = useStore();
 
 	async function onSubmit(values: z.infer<typeof loginSchema>) {
-		await axios.post(
-			`${process.env.NEXT_PUBLIC_URL}/api/auth/login`	,
-			{ email: values.email, password: values.password },
-			{ withCredentials: true },
+		toast.promise(
+			signIn("credentials", {
+				email: values.email,
+				password: values.password,
+				redirect: false,
+			}),
+			{
+				loading: "Loading...",
+				success: () => {
+					return "User Login";
+				},
+				error: "Error",
+			},
 		);
-		user.fetchUser();
 	}
 
 	return (

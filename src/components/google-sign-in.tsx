@@ -1,16 +1,16 @@
-"use client";	
+"use client";
 import React from "react";
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
-import useStore from "@/hooks/user";
+import { useUser } from "@/hooks/user";
+import { signIn } from "next-auth/react";
 
 const LoginButton = () => {
-	const user = useStore();
-	function onSubmit() {
-		window.location.href = `${process.env.NEXT_PUBLIC_URL}/api/auth/google`;
-		user.setUser();
+	const user = useUser();
+	async function handleLogin() {
+		await signIn("google");
+		user.setUser("login");
 	}
-
 	return (
 		<>
 			<div className="flex items-center justify-between">
@@ -18,9 +18,9 @@ const LoginButton = () => {
 				<h1 className="text-gray-400 text-lg">OR</h1>
 				<div className="w-2/5 h-[1px] bg-gray-400" />
 			</div>
-			<Button className="gap-2" onClick={() => onSubmit()}>
+			<Button className="gap-2" onClick={() => handleLogin()}>
 				<FcGoogle className="size-4" />
-				<h1>Sign In with Google</h1>
+				<h1>with Google</h1>
 			</Button>
 		</>
 	);

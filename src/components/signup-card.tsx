@@ -31,21 +31,21 @@ const SignUpCard = () => {
 	});
 	const value = useValue();
 
-	function onSubmit(values: z.infer<typeof loginSchema>) {
-		const response = axios.post(
-			`${process.env.NEXT_PUBLIC_URL}/api/auth/register`,
-			{ email: values.email, password: values.password },
-			{ withCredentials: true },
-		);
-
-		toast.promise(response, {
-			loading: "Loading...",
-			success: () => {
-				value.setValue("login");
-				return "User created please login";
+	async function onSubmit(values: z.infer<typeof loginSchema>) {
+		toast.promise(
+			axios.post("/api/register", {
+				email: values.email,
+				password: values.password,
+			}),
+			{
+				loading: "Loading...",
+				success: () => {
+					value.setValue("login");
+					return "User created please login";
+				},
+				error: "Error",
 			},
-			error: "Error",
-		});
+		);
 	}
 	return (
 		<Card>
