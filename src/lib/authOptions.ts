@@ -1,4 +1,4 @@
-import type { Account, User as AuthUser,AuthOptions } from "next-auth";
+import type { Account, User as AuthUser, AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -41,7 +41,8 @@ export const authOptions: AuthOptions = {
     //
   ],
   callbacks: {
-    async signIn({ user, account }: { user: AuthUser; account: Account }) {
+    async signIn(params) {
+      const { user, account } = params;
       if (account?.provider === "credentials") {
         return true;
       }
@@ -50,11 +51,8 @@ export const authOptions: AuthOptions = {
         try {
           const existingUser = await User.findOne({ email: user.email });
           if (!existingUser) {
-            const newUser = new User({
-              email: user.email,
-            });
+            const newUser = new User({ email: user.email });
             await newUser.save();
-            return true;
           }
           return true;
         } catch (err) {
@@ -62,6 +60,7 @@ export const authOptions: AuthOptions = {
           return false;
         }
       }
+      return false;
     },
   },
 };
