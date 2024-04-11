@@ -1,13 +1,14 @@
 import NextAuth from "next-auth";
-import type { Account, User as AuthUser } from "next-auth";
+import type { Account, User as AuthUser} from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/User";
 import connect from "@/lib/db";
 
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const authOptions: any = {
+const authOptions : any = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -68,5 +69,5 @@ export const authOptions: any = {
   },
 };
 
-export const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST, authOptions };
