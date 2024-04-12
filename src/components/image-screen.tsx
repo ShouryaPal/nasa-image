@@ -61,7 +61,7 @@ const ImageScreen = () => {
 									<Calendar
 										mode="single"
 										selected={field.value}
-										onSelect={(date: React.SetStateAction<Date>) => {
+										onSelect={(date) => {
 											field.onChange(date);
 											setSelectedDate(date);
 										}}
