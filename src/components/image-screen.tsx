@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import LogOut from "@/components/logout-btn";
 import { getData } from "@/lib/db.server";
 import { useQuery } from "@tanstack/react-query";
@@ -60,7 +61,7 @@ const ImageScreen = () => {
 									<Calendar
 										mode="single"
 										selected={field.value}
-										onSelect={(date: Date) => {
+										onSelect={(date: React.SetStateAction<Date>) => {
 											field.onChange(date);
 											setSelectedDate(date);
 										}}
