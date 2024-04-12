@@ -61,10 +61,7 @@ const ImageScreen = () => {
 									<Calendar
 										mode="single"
 										selected={field.value}
-										onSelect={(date) => {
-											field.onChange(date);
-											setSelectedDate(date);
-										}}
+										onSelect={field.onChange}
 										disabled={(date: Date) =>
 											date > new Date() || date < new Date("1900-01-01")
 										}
@@ -72,6 +69,7 @@ const ImageScreen = () => {
 									/>
 								)}
 							/>
+							<Button>Change Date</Button>
 						</form>
 					</Form>
 					<div className="p-4 flex flex-col items-center gap-3">
