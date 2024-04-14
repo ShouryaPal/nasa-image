@@ -21,23 +21,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { loginSchema } from "@/schema/login-autentication";
-import useStore from "@/hooks/user";
 import axios from "axios";
 
 const LoginCard = () => {
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
 	});
-	const user = useStore();
-
-	async function onSubmit(values: z.infer<typeof loginSchema>) {
-		await axios.post(
-			`${process.env.NEXT_PUBLIC_URL}/api/auth/login`	,
-			{ email: values.email, password: values.password },
-			{ withCredentials: true },
-		);
-		user.fetchUser();
-	}
 
 	return (
 		<Card>
@@ -46,7 +35,7 @@ const LoginCard = () => {
 				<CardDescription>Enter in your space</CardDescription>
 			</CardHeader>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form>
 					<CardContent className="space-y-2">
 						<FormField
 							control={form.control}

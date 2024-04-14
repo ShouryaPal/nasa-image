@@ -29,24 +29,6 @@ const SignUpCard = () => {
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
 	});
-	const value = useValue();
-
-	function onSubmit(values: z.infer<typeof loginSchema>) {
-		const response = axios.post(
-			`${process.env.NEXT_PUBLIC_URL}/api/auth/register`,
-			{ email: values.email, password: values.password },
-			{ withCredentials: true },
-		);
-
-		toast.promise(response, {
-			loading: "Loading...",
-			success: () => {
-				value.setValue("login");
-				return "User created please login";
-			},
-			error: "Error",
-		});
-	}
 	return (
 		<Card>
 			<CardHeader>
@@ -54,7 +36,7 @@ const SignUpCard = () => {
 				<CardDescription>Enter details</CardDescription>
 			</CardHeader>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form>
 					<CardContent className="space-y-2">
 						<FormField
 							control={form.control}
